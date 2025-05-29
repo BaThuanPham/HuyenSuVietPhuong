@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+
+sqlalchemy
+alembic
+
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
+aiofiles
+
+google-generativeai 
+
+
+pytest
+httpx
