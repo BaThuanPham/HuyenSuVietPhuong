@@ -6,6 +6,8 @@ Dự án **Ứng dụng Quản lý Tuyển Dụng (QLTD)**
 Là một dự án về website quản lý tuyển dụng giúp tạo cơ hội việc làm cho ứng viên và sự tuyển chọn của nhà tuyển dụng.
 Mục tiêu chính của QLTD là nâng cao hiệu quả hoạt động tuyển dụng, giảm thiểu gánh nặng hành chính và cung cấp trải nghiệm mượt mà hơn cho cả nhà tuyển dụng và ứng viên.
 
+-link repository:https://github.com/BaThuanPham/HuyenSuVietPhuong
+
  -Tính năng nổi bật
 
 * **Quản lý Tin tuyển dụng:**
@@ -61,20 +63,25 @@ Mở **Terminal** (trên macOS/Linux) hoặc **Git Bash** (trên Windows) và ch
 cd D:/MyGitHubProjects
 
 # Sao chép repository
-git clone [https://github.com/haile0208/HuyenSuVietPhuong.git](https://github.com/haile0208/HuyenSuVietPhuong.git)
+git clone [https://github.com/BaThuanPham/HuyenSuVietPhuong.git](https://github.com/BaThuanPham/HuyenSuVietPhuong.git)
 
 # Di chuyển vào thư mục gốc của repository
-cd HuyenSuVietPhuong
+vd:cd HuyenSuVietPhuong
 
 # Tiếp tục di chuyển vào thư mục chứa mã nguồn chính của ứng dụng Django (nơi có manage.py)
 
 #Tạo và Kích hoạt Môi trường ảo
-
+python -m venv venv
 #Kích hoạt môi trường ảo
-
+source venv/Scripts/activate
 #Cài đặt các Thư viện phụ thuộc có trong requirements.txt
-
+pip install -r requirements.txt
 #Cấu hình Cơ sở dữ liệu và Biến môi trường
 
 #Thực hiện Migrations và chạy ứng dụng (tạo superuser nếu muốn truy cập vào trang quản trị Django - admin)
+python manage.py makemigrations # Chạy lệnh này nếu bạn đã tạo hoặc thay đổi các model
+python manage.py migrate
+python manage.py createsuperuser
 
+#Chạy ứng dụng
+python manage.py runserver
