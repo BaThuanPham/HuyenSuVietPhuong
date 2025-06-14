@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% load static %}
+{% load filters %}
+
+{% block title %}Hồ sơ người dùng{% endblock %}
+
+{% block content %}
+<div class="profile-main-container">
+    <a href="{% url 'candidates:profile_edit' %}" class="profile-edit-btn">
+        <i class="fa fa-edit"></i> Chỉnh sửa hồ sơ
+    </a>
+    <div class="profile-left">
+        <div class="profile-avatar">
+        <form method="post" enctype="multipart/form-data" action="{% url 'candidates:update_avatar' %}">
+            {% csrf_token %}
+            <label for="avatar-upload" class="avatar-upload-label">
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" alt="Avatar" />
+                {% else %}
+                    <div class="avatar-placeholder">
+                        <span class="plus-icon">+</span>
+                    </div>
+                {% endif %}
+                <input id="avatar-upload" name="avatar" type="file" accept="image/*" style="display:none;" onchange="this.form.submit()">
+            </label>
+        </form>
+        </div>
+        <h2 class="profile-name">{{ profile.full_name }}</h2>
+        <div class="profile-role">Ứng viên</div>
+        <div class="profile-info-list">
+            <div><i class="fa fa-envelope"></i> {{ profile.email }}</div>
+            <div><i class="fa fa-phone"></i> {{ profile.phone_number }}</div>
+            <div><i class="fa fa-map-marker"></i> {{ profile.address }}</div>
+        </div>
+    </div>
+    <div class="profile-right">
+        <div class="profile-section">
+            <h3><i class="fa fa-graduation-cap"></i> Học vấn</h3>
+            <div class="profile-section-content">{{ profile.education|linebreaksbr }}</div>
+        </div>
+        <div class="profile-section">
+            <h3><i class="fa fa-briefcase"></i> Kinh nghiệm làm việc</h3>
+            <div class="profile-section-content">{{ profile.experience|linebreaksbr }}</div>
+        </div>
+        <div class="profile-section">
+            <h3><i class="fa fa-cogs"></i> Kỹ năng</h3>
+            <div class="profile-section-content">{{ profile.skills|linebreaksbr }}</div>
+        </div>
+    </div>
+</div>
+{% if profile.cv_file %}
+    <div class="profile-cv-view">
+        <h3>CV của bạn</h3>
+        {% if profile.cv_file.url|endswith:".pdf" %}
+            <iframe src="{{ profile.cv_file.url }}" width="70%" height="600px" style="border:1px solid #ccc; border-radius:8px;"></iframe>
+        {% else %}
+            <a href="{{ profile.cv_file.url }}" class="profile-cv-download-btn" download>
+                <i class="fa fa-download"></i> Tải CV: {{ profile.cv_file.name|basename }}
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.profile-avatar {
+    position: relative;
+    margin-bottom: 18px;
+}
+.avatar-upload-label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.avatar-placeholder {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    border: 3px dashed #bdbdbd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.plus-icon {
+    font-size: 2.5em;
+    color: #bdbdbd;
+    font-weight: bold;
+    line-height: 1;
+}
+.profile-avatar img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+}
+.profile-edit-btn {
+    position: absolute;      
+    top: 24px;               
+    right: 32px;             
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;               
+    background: linear-gradient(90deg, #005bea 60%, #0026a3 100%);
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-size: 1em;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,38,163,0.10);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    z-index: 10;
+}
+.profile-edit-btn:hover {
+    background: linear-gradient(90deg, #0026a3 60%, #005bea 100%);
+    color: #ffe082;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,38,163,0.18);
+}
+.profile-main-container {
+    position: relative;
+    display: flex;
+    max-width: 1100px;
+    margin: 40px auto 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    overflow: hidden;
+    min-height: 420px;
+    border: 1px solid rgb(151, 156, 172);
+}
+.profile-left {
+    background:  #0026a3;
+    color: #fff;
+    width: 320px;
+    padding: 36px 28px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile-avatar img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 18px;
+    border: 3px solid #fff;
+}
+.profile-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 6px;
+    text-align: center;
+}
+.profile-role {
+    font-size: 1em;
+    margin-bottom: 18px;
+    font-style: italic;
+    color: #ffe082;
+}
+.profile-info-list {
+    width: 100%;
+    margin-top: 10px;
+}
+.profile-info-list div {
+    margin-bottom: 12px;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.profile-info-list i {
+    width: 18px;
+    text-align: center;
+}
+.profile-right {
+    flex: 1;
+    padding: 36px 38px 28px 38px;
+    background: #f7fafd;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+.profile-section {
+    margin-bottom: 10px;
+}
+.profile-section h3 {
+    color:  #0026a3;
+    font-size: 1.15em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.profile-section-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 1em;
+    color: #333;
+    min-height: 48px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.profile-cv-view {
+    margin: 36px auto 0 auto;
+    text-align: center;
+}
+.profile-cv-view h3 {
+    color:  #0026a3;
+    margin-bottom: 18px;
+}
+@media (max-width: 900px) {
+    .profile-main-container {
+        flex-direction: column;
+        max-width: 98vw;
+    }
+    .profile-left, .profile-right {
+        width: 100%;
+        padding: 24px 10vw;
+    }
+    .profile-cv-view iframe {
+        width: 95vw !important;
+    }
+}
+.profile-cv-download-btn {
+    display: inline-block;
+    background: linear-gradient(90deg, #0026a3 60%, #005bea 100%);
+    color: #fff;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 32px;
+    font-size: 1.1em;
+    text-decoration: none;
+    margin-top: 24px;
+    box-shadow: 0 4px 16px rgba(0,38,163,0.10);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.profile-cv-download-btn:hover {
+    background: linear-gradient(90deg, #005bea 60%, #0026a3 100%);
+    color: #ffe082;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,38,163,0.18);
+}
+.profile-cv-download-btn i {
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}

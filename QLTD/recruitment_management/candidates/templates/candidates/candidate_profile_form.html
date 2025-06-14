@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}Tạo hồ sơ ứng viên{% endblock %}
+
+{% block content %}
+<div class="profile-bg-highlight">
+    <div class="profile-card">
+        <div class="profile-card-header">
+            <span class="profile-icon">👤</span>
+            <h2>{% if form.instance.pk %}Cập nhật hồ sơ{% else %}Tạo hồ sơ ứng viên{% endif %}</h2>
+            <p class="profile-desc">Hãy điền đầy đủ thông tin để nhà tuyển dụng hiểu rõ về bạn hơn!</p>
+        </div>
+        <form method="post" enctype="multipart/form-data" class="profile-form">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="profile-form-group">
+                    <label class="profile-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <div class="profile-help">{{ field.help_text }}</div>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="profile-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="profile-btn">
+                {% if form.instance.pk %}Cập nhật{% else %}Tạo hồ sơ{% endif %}
+            </button>
+        </form>
+    </div>
+</div>
+<style>
+body > .messages-container,
+body > .messages-container:empty {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: none !important;
+    height: 0 !important;
+}
+body > main.content-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    min-height: 100vh !important;
+}
+.container, .content-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.profile-bg-highlight {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(120deg, #6366f1 0%, #60a5fa 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.profile-card {
+    max-width: 500px;
+    margin: 48px auto 0 auto;
+    background: linear-gradient(135deg, #e0e7ff 0%, #fff 100%);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 36px 38px 28px 38px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.profile-card-header {
+    text-align: center;
+    margin-bottom: 22px;
+}
+.profile-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 8px;
+}
+.profile-card h2 {
+    color: #2d3a8c;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+.profile-desc {
+    color: #4b5563;
+    font-size: 1.05rem;
+    margin-bottom: 0;
+}
+.profile-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.profile-form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.profile-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+.profile-form-group input,
+.profile-form-group select,
+.profile-form-group textarea {
+    width: 95%;
+    padding: 10px 12px;
+    border: 1.5px solid #b6c0e0;
+    border-radius: 7px;
+    background: #f4f7ff;
+    font-size: 1rem;
+    transition: border 0.2s, background 0.2s;
+    margin-bottom: 2px;
+}
+.profile-form-group input:focus,
+.profile-form-group select:focus,
+.profile-form-group textarea:focus {
+    border-color: #2d3a8c;
+    background: #fff;
+    outline: none;
+}
+.profile-help {
+    color: #6b7280;
+    font-size: 0.95em;
+    margin-top: 2px;
+}
+.profile-error {
+    color: #dc3545;
+    font-size: 0.97em;
+    margin-top: 2px;
+}
+.profile-btn {
+    width: 100%;
+    padding: 12px 0;
+    background: linear-gradient(90deg, #2d3a8c 60%, #6366f1 100%);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(99,102,241,0.08);
+    transition: background 0.2s;
+}
+.profile-btn:hover {
+    background: linear-gradient(90deg, #6366f1 0%, #2d3a8c 100%);
+}
+</style>
+{% endblock %}

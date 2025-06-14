@@ -1,0 +1,102 @@
+{# recruitment_management/templates/base.html #}
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hệ thống Quản lý Tuyển dụng{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a 
+                href="{% if user.is_authenticated %}
+                        {% if user.role == 'candidate' %}
+                            {% url 'accounts:candidate_home' %}
+                        {% elif user.role == 'recruiter' %}
+                            {% url 'accounts:recruiter_home' %}
+                        {% else %}
+                            {% url 'home' %}
+                        {% endif %}
+                    {% else %}
+                        {% url 'home' %}
+                    {% endif %}" 
+                class="logo" style="display: flex; align-items: center;"
+            >
+                <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo-img">
+                TalentHub
+            </a>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                        
+                        {% if user.role == 'candidate' %}
+                            <li><a href="{% url 'candidates:candidate_dashboard' %}">Tổng quan</a></li>
+                            <li><a href="{% url 'candidates:profile' %}">Hồ sơ của tôi</a></li>
+                            <li><a href="{% url 'candidates:my_applications' %}">Ứng tuyển của tôi</a></li>
+                        {% elif user.role == 'recruiter' %}
+                            <li><a href="{% url 'jobs:recruiter_dashboard' %}">Tổng quan</a></li>
+                            <li><a href="{% url 'jobs:job_create' %}">Đăng tin mới</a></li>
+                            <li><a href="{% url 'jobs:application_list' %}">Quản lý ứng tuyển</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'accounts:profile' %}">Xin chào, {{ user.username }}</a></li>
+                        <li>
+                            <form method="post" action="{% url 'accounts:logout' %}" class="logout-form">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-btn">Đăng xuất</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        
+                        <li><a href="{% url 'accounts:register_candidate' %}">Đăng ký ứng viên</a></li>
+                        <li><a href="{% url 'accounts:register_recruiter' %}">Đăng ký nhà tuyển dụng</a></li>
+                        <li>
+                            <form method="post" action="{% url 'accounts:login' %}" class="login-form">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="login-btn">Đăng nhập</button>
+                            </form>
+                        </li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="messages-container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <main class="content-wrapper">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 TalentHub. Hãy để chúng tôi tạo cơ hội cho bạn.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Về chúng tôi</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

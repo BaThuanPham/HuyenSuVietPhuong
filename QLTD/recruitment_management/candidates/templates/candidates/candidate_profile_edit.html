@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Chỉnh sửa hồ sơ ứng viên{% endblock %}
+
+{% block content %}
+<div class="user-profile-edit-container">
+    <h2 class="profile-edit-title">Cập nhật hồ sơ</h2>
+    <form method="post" enctype="multipart/form-data" action="{% url 'candidates:profile_edit' %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-group">
+            {{ form.full_name.label_tag }}
+            {{ form.full_name }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            {{ form.phone_number.label_tag }}
+            {{ form.phone_number }}
+        </div>
+        <div class="form-group">
+            {{ form.address.label_tag }}
+            {{ form.address }}
+        </div>
+        <div class="form-group">
+            {{ form.cv_file.label_tag }}
+            {{ form.cv_file.as_widget }}
+        </div>
+        <div class="form-group">
+            {{ form.education.label_tag }}
+            {{ form.education }}
+        </div>
+        <div class="form-group">
+            {{ form.experience.label_tag }}
+            {{ form.experience }}
+        </div>
+        <div class="form-group">
+            {{ form.skills.label_tag }}
+            {{ form.skills }}
+        </div>
+        <button type="submit" class="btn btn-primary">Cập nhật hồ sơ</button>
+    </form>
+    <div class="profile-actions">
+        <a href="{% url 'candidates:profile' %}">Xem hồ sơ</a>
+        <a href="{% url 'candidates:change_password' %}">Đổi mật khẩu</a>
+    </div>
+</div>
+
+<style>
+body {
+    background: linear-gradient(120deg, #6a93cb 0%, #a4bfef 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.user-profile-edit-container {
+    max-width: 480px;
+    margin: 48px auto 0 auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+    padding: 36px 36px 28px 36px;
+    border: 1px solid #e3e8f0;
+    transition: box-shadow 0.2s;
+}
+
+.user-profile-edit-container:hover {
+    box-shadow: 0 12px 36px rgba(0,38,163,0.13);
+}
+
+.profile-edit-title {
+    text-align: center;
+    margin-bottom: 28px;
+    font-size: 1.7em;
+    font-weight: 700;
+    color: #1a237e;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #283593;
+    margin-bottom: 7px;
+    font-size: 1em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="file"],
+.form-group textarea,
+.form-group select {
+    padding: 10px 14px;
+    border: 1px solid #bfc9e0;
+    border-radius: 8px;
+    font-size: 1em;
+    background: #f7f9fc;
+    transition: border 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="file"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border: 1.5px solid #005bea;
+    box-shadow: 0 2px 8px rgba(0,94,234,0.08);
+    background: #fff;
+}
+
+.form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.form-group input[type="checkbox"][id$="-clear_id"] {
+    margin-top: 30px;
+    margin-bottom: -22px;  
+    vertical-align: middle; 
+}
+
+
+.form-group label[for$="-clear_id"] {
+    vertical-align: middle; 
+    margin-left: 5px;       
+}
+.cv-file-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.97em;
+    margin-top: 6px;
+    color: #374151;
+    flex-wrap: wrap;
+}
+
+.cv-file-info a {
+    color: #005bea;
+    text-decoration: underline;
+    font-weight: 500;
+    word-break: break-all;
+}
+.profile-actions {
+    margin-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.profile-actions a {
+    background: #e3e8f0;
+    color: #1a237e;
+    padding: 8px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    transition: background 0.18s, color 0.18s;
+}
+
+.profile-actions a:hover {
+    background: #005bea;
+    color: #fff;
+}
+
+.btn.btn-primary {
+    width: 100%;
+    padding: 12px 0;
+    background: linear-gradient(90deg, #005bea 60%, #0026a3 100%);
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 1.08em;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,38,163,0.10);
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+}
+
+.btn.btn-primary:hover {
+    background: linear-gradient(90deg, #0026a3 60%, #005bea 100%);
+    box-shadow: 0 4px 16px rgba(0,38,163,0.13);
+}
+
+@media (max-width: 600px) {
+    .user-profile-edit-container {
+        max-width: 98vw;
+        padding: 18px 6vw 18px 6vw;
+    }
+    .profile-edit-title {
+        font-size: 1.2em;
+    }
+}
+
+</style>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Trang Ứng Viên{% endblock %}
+{% block content %}
+
+<div style="margin-top: 30px;">
+    <h2>Việc làm nổi bật</h2>
+    <div class="jobs-container" id="jobs-container" style="display: flex; flex-wrap: wrap; gap: 24px; margin-top: 18px;">
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+function logout() {
+    localStorage.removeItem('logged_in_candidate');
+    window.location.href = "{% url 'accounts:logout' %}";
+}
+
+const jobs = [
+    {
+        title: "Nhân viên Kinh doanh",
+        company: "Công ty ABC",
+        location: "Hà Nội",
+        salary: "10-15 triệu",
+        desc: "Tìm kiếm khách hàng, tư vấn sản phẩm, chăm sóc khách hàng."
+    },
+    {
+        title: "Lập trình viên Python",
+        company: "Tech Solutions",
+        location: "TP. Hồ Chí Minh",
+        salary: "15-25 triệu",
+        desc: "Phát triển ứng dụng web, bảo trì hệ thống, làm việc nhóm."
+    },
+    {
+        title: "Chuyên viên Marketing",
+        company: "Marketing Pro",
+        location: "Đà Nẵng",
+        salary: "12-18 triệu",
+        desc: "Lên kế hoạch marketing, chạy quảng cáo, phân tích thị trường."
+    }
+];
+
+window.addEventListener('DOMContentLoaded', function() {
+    const jobsContainer = document.getElementById('jobs-container');
+    jobs.forEach(job => {
+        const card = document.createElement('div');
+        card.className = 'job-card';
+        card.style = "background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);padding:24px 20px 18px 20px;width:270px;display:flex;flex-direction:column;gap:10px;transition:box-shadow 0.2s;";
+        card.innerHTML = `
+            <div class="job-title" style="font-size:1.1em;font-weight:600;color:#2563eb;">${job.title}</div>
+            <div class="company" style="font-size:1em;color:#222;font-weight:500;">${job.company}</div>
+            <div class="job-info" style="font-size:0.97em;color:#444;">Địa điểm: ${job.location}</div>
+            <div class="job-info" style="font-size:0.97em;color:#444;">Mức lương: ${job.salary}</div>
+            <div class="job-info" style="font-size:0.97em;color:#444;">${job.desc}</div>
+            <button class="apply-btn" style="margin-top:10px;padding:8px 0;background:#2563eb;color:#fff;border:none;border-radius:7px;font-weight:600;cursor:pointer;transition:background 0.2s;">Ứng tuyển</button>
+        `;
+        jobsContainer.appendChild(card);
+    });
+});
+</script>
+<style>
+.welcome {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.profile-btn {
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 7px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+    font-size: 0.9em;
+}
+.profile-btn:hover {
+    background: #1741a6;
+    color: #fff;
+}
+</style>
+{% endblock %}

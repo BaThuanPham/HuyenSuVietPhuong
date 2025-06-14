@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}Trang chủ{% endblock %}
+
+{% block content %}
+<style>
+body > .messages-container,
+body > .messages-container:empty {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: none !important;
+    height: 0 !important;
+}
+body > main.content-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    min-height: 100vh !important;
+}
+.home-hero-bg {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background: linear-gradient(to bottom, #0026a3 0%, #fff 100%);
+    padding: 0 0 56px 0;
+    box-sizing: border-box;
+    margin-top: 0;
+    min-height: 30vh;
+}
+.home-hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    color: #fff;
+}
+.home-hero-content h2 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0 0 18px 0;
+    padding-top: 18px;
+}
+.home-hero-content p {
+    font-size: 1.1em;
+    margin: 0 0 28px 0;
+    color: #f3f3f3;
+}
+.home-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+.btn {
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-size: 1em;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+.btn-outline {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+}
+.btn-outline:hover {
+    background: #fff;
+    color: #2563eb;
+}
+.btn-primary {
+    background: #0026a3;
+    color: #fff;
+    border: 2px solid #0026a3;
+}
+.btn-primary:hover {
+    background: #fff;
+    color: #0026a3;
+}
+</style>
+<div class="home-hero-bg">
+    <div class="home-hero-content">
+        <h2>Simplify your recruitment process</h2>
+        <p>Let our AI do the work instead</p>
+        <div class="home-actions">
+            <a href="{% url 'jobs:job_list' %}" class="btn btn-outline">Find Jobs</a>
+            <a href="{% url 'jobs:job_create' %}" class="btn btn-primary">Post a Job</a>
+        </div>
+    </div>
+</div>
+
+<div class="what-we-offer-section">
+    <h2 class="offer-title">What we offer</h2>
+    <div class="offer-grid">
+        <div class="offer-item">
+            <div class="offer-icon"></div>
+            <div>
+                <div class="offer-heading">AI Matching</div>
+                <div class="offer-desc">Autonomous AI matching that match potential applicants to your own needs.</div>
+            </div>
+        </div>
+        <div class="offer-item">
+            <div class="offer-icon"></div>
+            <div>
+                <div class="offer-heading">Screening Tests</div>
+                <div class="offer-desc">Screen through your applicant’s activities with a glance of time and summarize the info.</div>
+            </div>
+        </div>
+        <div class="offer-item">
+            <div class="offer-icon"></div>
+            <div>
+                <div class="offer-heading">Scheduling Interviews</div>
+                <div class="offer-desc">Auto schedule interviews without the need for your distraction.</div>
+            </div>
+        </div>
+        <div class="offer-item">
+            <div class="offer-icon"></div>
+            <div>
+                <div class="offer-heading">Role Management</div>
+                <div class="offer-desc">Assign different applicants to different roles at the same time, on the tip of your mouse.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.what-we-offer-section {
+    max-width: 900px;
+    margin: 48px auto 0 auto;
+    padding: 0 16px;
+    text-align: center;
+}
+.offer-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 32px;
+    color: #222;
+}
+.offer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 32px;
+    justify-items: stretch;
+}
+.offer-item {
+    display: flex;
+    align-items: flex-start;
+    background: #f6f6f6;
+    border-radius: 16px;
+    padding: 18px 20px;
+    gap: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.offer-icon {
+    width: 36px;
+    height: 36px;
+    background: #0026a3;
+    border-radius: 50%;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+.offer-heading {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+    color: #0026a3;
+    text-align: left;
+}
+.offer-desc {
+    font-size: 0.98em;
+    color: #333;
+    text-align: left;
+}
+@media (max-width: 700px) {
+    .offer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,325 @@
+/* recruitment_management/static/css/style.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header/Navbar */
+.navbar {
+    background-color: #0026a3;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    margin:0;
+    padding: 0 30px;
+}
+.navbar nav{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+.navbar .logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+
+.navbar nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.navbar nav ul li {
+    margin-left: 25px;
+}
+
+.navbar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar nav ul li a:hover {
+    color: #f8f9fa;
+    text-decoration: underline;
+}
+.logo-img {
+    height: 56px;   
+    width: auto;
+    margin-right: 14px;
+    display: block;
+}
+
+.login-btn {
+    background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 28px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+}
+
+.login-btn:hover {
+    background: linear-gradient(90deg, #0056b3 0%, #007bff 100%);
+    transform: translateY(-2px) scale(1.04);
+}
+
+
+.logout-btn {
+    background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 28px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(220,53,69,0.08);
+    margin-left: 10px;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(90deg, #b52a37 0%, #dc3545 100%);
+    transform: translateY(-2px) scale(1.04);
+}
+
+/* Messages */
+.messages-container {
+    margin-top: 20px;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.messages li {
+    padding: 12px 25px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.95em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.messages .success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.messages .error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.messages .info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+
+.content-wrapper {
+    padding: 40px 0;
+    min-height: calc(100vh - 180px); 
+    box-sizing: border-box; 
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+
+.content-wrapper.center-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+}
+
+
+.auth-card {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 0 auto; 
+}
+
+.auth-card h1 {
+    font-size: 2em;
+    color: #28a745;
+    margin-bottom: 25px;
+}
+
+.auth-card form p {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.auth-card form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.95em;
+}
+
+.auth-card form input[type="text"],
+.auth-card form input[type="password"],
+.auth-card form input[type="email"],
+.auth-card form input[type="number"],
+.auth-card form input[type="url"],
+.auth-card form textarea,
+.auth-card form select,
+.auth-card form input[type="datetime-local"],
+.auth-card form input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-card form input[type="text"]:focus,
+.auth-card form input[type="password"]:focus,
+.auth-card form input[type="email"]:focus,
+.auth-card form input[type="number"]:focus,
+.auth-card form input[type="url"]:focus,
+.auth-card form textarea:focus,
+.auth-card form select:focus,
+.auth-card form input[type="datetime-local"]:focus,
+.auth-card form input[type="file"]:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    outline: none;
+}
+
+.auth-card form button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.auth-card form button[type="submit"]:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.auth-card p {
+    margin-top: 25px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.auth-card p a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-card p a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+    background-color: #0026a3;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+}
+
+.footer .footer-nav ul {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer .footer-nav ul li {
+    margin: 0 15px;
+}
+
+.footer .footer-nav ul li a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer .footer-nav ul li a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    color: #dc3545; 
+    font-size: 0.9em;
+}
+.error-message {
+    color: #dc3545;
+    font-size: 0.85em;
+    display: block;
+    margin-top: 5px;
+}
+.help-text {
+    font-size: 0.85em;
+    color: #6c757d;
+    display: block;
+    margin-top: 5px;
+}

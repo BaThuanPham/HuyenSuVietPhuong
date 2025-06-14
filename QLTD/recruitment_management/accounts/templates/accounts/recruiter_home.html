@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.recruiter-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(37,99,235,0.08);
+    padding: 32px 40px;
+}
+.recruiter-header {
+    font-size: 2em;
+    font-weight: bold;
+    color: #2563eb;
+    margin-bottom: 16px;
+}
+.quick-actions {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+.quick-actions button {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 22px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 1em;
+}
+.quick-actions button:hover {
+    background: #1741a6;
+}
+.jobs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+.jobs-table th, .jobs-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+.jobs-table th {
+    background: #f1f5fb;
+    color: #2563eb;
+}
+.jobs-table tr:last-child td {
+    border-bottom: none;
+}
+.status-open {
+    color: #22c55e;
+    font-weight: 600;
+}
+.status-closed {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.welcome {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.profile-btn {
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 7px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+    font-size: 0.9em;
+}
+.profile-btn:hover {
+    background: #1741a6;
+    color: #fff;
+}
+</style>
+
+<div class="recruiter-container">
+    <div class="recruiter-header">Xin chào, Nhà tuyển dụng!</div>
+    <div class="quick-actions">
+        <button onclick="window.location.href='/recruiter/add-job/'">+ Đăng tin tuyển dụng</button>
+        <button onclick="window.location.href='/recruiter/applicants/'">Xem ứng viên</button>
+        <button onclick="window.location.href='/recruiter/manage-jobs/'">Quản lý tin tuyển dụng</button>
+    </div>
+    <h3 style="margin-bottom: 10px;">Tin tuyển dụng gần đây</h3>
+    <table class="jobs-table">
+        <thead>
+            <tr>
+                <th>Vị trí</th>
+                <th>Ngày đăng</th>
+                <th>Trạng thái</th>
+                <th>Ứng viên</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Lập trình viên Python</td>
+                <td>12/06/2025</td>
+                <td><span class="status-open">Đang mở</span></td>
+                <td>5</td>
+                <td>
+                    <button onclick="window.location.href='#'">Xem</button>
+                    <button onclick="window.location.href='#'">Đóng</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Chuyên viên Marketing</td>
+                <td>10/06/2025</td>
+                <td><span class="status-closed">Đã đóng</span></td>
+                <td>8</td>
+                <td>
+                    <button onclick="window.location.href='#'">Xem</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

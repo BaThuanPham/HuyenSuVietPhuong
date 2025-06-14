@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load job_tags %} 
+{% block title %}{{ job_posting.title }}{% endblock %}
+
+{% block content %}
+<div class="job-detail-container">
+    <h1>{{ job_posting.title }}</h1>
+    <p><strong>Công ty/Người đăng:</strong> {{ job_posting.posted_by.get_full_name|default:job_posting.posted_by.username }}</p>
+    <p><strong>Địa điểm:</strong> {{ job_posting.location }}</p>
+    <p><strong>Loại hình:</strong> {{ job_posting.get_job_type_display }}</p>
+    <p><strong>Ngày đăng:</strong> {{ job_posting.created_at|date:"d/m/Y" }}</p>
+
+    <div class="job-description">
+        <h3>Mô tả công việc</h3>
+        {{ job_posting.description|linebreaksbr }}
+    </div>
+
+    <div class="job-requirements">
+        <h3>Yêu cầu công việc</h3>
+        {{ job_posting.requirements|linebreaksbr }}
+    </div>
+
+    {% if user.is_authenticated and user.role == 'candidate' %}
+        {% has_applied user job_posting as already_applied %}
+        {% if not already_applied %}
+            <a href="{% url 'jobs:apply_job' pk=job_posting.pk %}" class="btn btn-apply">Ứng tuyển ngay</a>
+        {% else %}
+            <p class="already-applied-message">Bạn đã ứng tuyển vào vị trí này.</p>
+        {% endif %}
+    {% elif not user.is_authenticated %}
+        <p class="login-prompt">
+            Vui lòng <a href="{% url 'accounts:login' %}?next={{ request.path }}">đăng nhập</a> với tư cách ứng viên để ứng tuyển.
+        </p>
+    {% endif %}
+
+</div>
+
+<style>
+.job-detail-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+}
+.job-detail-container h1 {
+    font-size: 2em;
+    color: #2563eb; 
+    margin-bottom: 15px;
+}
+.job-detail-container h3 {
+    font-size: 1.4em;
+    color: #374151; 
+    margin-top: 25px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb; 
+    padding-bottom: 8px;
+}
+.job-description, .job-requirements {
+    margin-bottom: 20px;
+    line-height: 1.7;
+    color: #4b5563; 
+}
+.btn-apply {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 28px;
+    background-color: #10b981; 
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1.05em;
+    transition: background-color 0.2s ease;
+}
+.btn-apply:hover {
+    background-color: #059669; 
+}
+.already-applied-message {
+    margin-top: 25px;
+    padding: 12px;
+    background-color: #f3f4f6; 
+    border: 1px solid #e5e7eb; 
+    border-radius: 6px;
+    color: #4b5563; 
+    font-style: italic;
+}
+.login-prompt {
+    margin-top: 25px;
+    font-size: 1.05em;
+}
+.login-prompt a {
+    color: #2563eb;
+    text-decoration: underline;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Xác nhận ứng tuyển{% endblock %}
+
+{% block content %}
+<div class="apply-confirm-container">
+    <h2>Xác nhận ứng tuyển</h2>
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <p>Bạn sắp ứng tuyển vào vị trí: <strong>{{ job_posting.title }}</strong>.</p>
+    <p>Vui lòng kiểm tra lại thông tin và xác nhận để hoàn tất quá trình ứng tuyển.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Xác nhận ứng tuyển</button>
+        <a href="{% url 'jobs:job_detail' pk=job_posting.pk %}" class="btn btn-secondary">Hủy bỏ</a>
+    </form>
+</div>
+
+<style>
+.apply-confirm-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.apply-confirm-container h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+.apply-confirm-container p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+.btn {
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    margin: 0 8px;
+    border: none;
+}
+.btn-primary { background-color: #007bff; color: white; }
+.btn-primary:hover { background-color: #0056b3; transform: translateY(-2px); }
+.btn-secondary { background-color: #6c757d; color: white; }
+.btn-secondary:hover { background-color: #545b62; transform: translateY(-2px); }
+.alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: .75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem;}
+</style>
+{% endblock %}

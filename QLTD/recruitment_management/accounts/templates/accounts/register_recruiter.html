@@ -1,0 +1,154 @@
+{% block content %}
+<div class="center-form">
+    <div class="auth-card">
+        <h2>Đăng ký nhà tuyển dụng</h2>
+        <form method="post" action="{% url 'accounts:register_recruiter' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Tên đăng nhập:</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error-message">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email:</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error-message">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Mật khẩu:</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="error-message">{{ form.password1.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Xác nhận mật khẩu:</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="error-message">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.company_name.id_for_label }}">Tên công ty:</label>
+                {{ form.company_name }}
+                {% if form.company_name.errors %}
+                    <div class="error-message">{{ form.company_name.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.phone.id_for_label }}">Số điện thoại:</label>
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    <div class="error-message">{{ form.phone.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.company_address.id_for_label }}">Địa chỉ công ty:</label>
+                {{ form.company_address }}
+                {% if form.company_address.errors %}
+                    <div class="error-message">{{ form.company_address.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.company_website.id_for_label }}">Website công ty:</label>
+                {{ form.company_website }}
+                {% if form.company_website.errors %}
+                    <div class="error-message">{{ form.company_website.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit">Đăng ký</button>
+        </form>
+        <p>Đã có tài khoản? <a href="{% url 'accounts:login' %}">Đăng nhập</a></p>
+    </div>
+</div>
+<style>
+body {
+    background: linear-gradient(to bottom right, #2563eb 0%, #fff 100%);
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.center-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.auth-card {
+    background: #fff;
+    padding: 32px 28px 24px 28px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    min-width: 320px;
+    max-width: 400px;
+    width: 100%;
+}
+.auth-card h2 {
+    text-align: center;
+    color: #0026a3;
+    margin-bottom: 24px;
+}
+.form-group {
+    margin-bottom: 18px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #222;
+    font-weight: 500;
+    font-size: 0.97em;
+}
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cfd8dc;
+    border-radius: 8px;
+    font-size: 0.97em;
+    background: #f7fafd;
+    transition: border 0.2s;
+}
+.form-group input:focus {
+    border: 1.5px solid #2563eb;
+    outline: none;
+    background: #fff;
+}
+button[type="submit"] {
+    width: 100%;
+    padding: 10px 0;
+    background: #0026a3;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+}
+button[type="submit"]:hover {
+    background: #2563eb;
+}
+.auth-card p {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.98em;
+}
+.auth-card a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+.auth-card a:hover {
+    text-decoration: underline;
+}
+.error-message {
+    color: #dc3545;
+    font-size: 0.95em;
+    margin-top: 4px;
+}
+</style>
+{% endblock %}

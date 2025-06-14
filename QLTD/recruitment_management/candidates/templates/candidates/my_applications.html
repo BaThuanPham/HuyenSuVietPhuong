@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Đơn ứng tuyển của tôi{% endblock %}
+
+{% block content %}
+<div class="my-applications-container">
+    <h2 class="page-title">Đơn ứng tuyển của tôi</h2>
+
+    {% if applications %}
+        <ul class="application-list">
+            {% for application in applications %}
+                <li class="application-item">
+                    <div class="application-header">
+                        <h3 class="job-title">
+                            <a href="{% url 'jobs:job_detail' pk=application.job_posting.pk %}">{{ application.job_posting.title }}</a>
+                        </h3>
+                        <span class="application-date">Ngày ứng tuyển: {{ application.applied_at|date:"d/m/Y H:i" }}</span>
+                    </div>
+                    <div class="application-body">
+                        <p class="company-name">
+                            Công ty: {{ application.job_posting.posted_by.get_full_name|default:application.job_posting.posted_by.username }}
+                        </p>
+                        <p class="application-status">
+                            Trạng thái: <span class="status-badge status-{{ application.status|slugify }}">{{ application.get_status_display|default:application.status }}</span>
+                        </p>
+                    </div>
+                    <div class="application-actions">
+                        <a href="{% url 'jobs:application_detail' pk=application.pk %}" class="btn btn-view-detail">Xem chi tiết đơn</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-applications">Bạn chưa ứng tuyển vào công việc nào.</p>
+        <p><a href="{% url 'jobs:job_list' %}" class="btn btn-primary">Tìm kiếm việc làm</a></p>
+    {% endif %}
+</div>
+
+<style>
+.my-applications-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+.page-title {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.application-list {
+    list-style: none;
+    padding: 0;
+}
+.application-item {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.application-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.job-title a {
+    font-size: 1.3em;
+    color: #007bff;
+    text-decoration: none;
+}
+.job-title a:hover { 
+    text-decoration: underline; 
+}
+.application-date { 
+    font-size: 0.9em; 
+    color: #777; 
+}
+.company-name { 
+    font-size: 1em; 
+    color: #555; 
+    margin-bottom: 8px; 
+}
+.application-status .status-badge { 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    color: white; 
+    font-size: 0.9em; 
+}
+.status-applied { 
+    background-color: #007bff; 
+} 
+.status-under-review { 
+    background-color: #ffc107; 
+    color: #333 !important; 
+} 
+.status-shortlisted { 
+    background-color: #28a745; 
+} 
+.status-rejected { 
+    background-color: #dc3545; 
+} 
+.application-actions { 
+    margin-top: 15px; 
+}
+.btn-view-detail {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+.btn-view-detail:hover { 
+    background-color: #5a6268; 
+}
+.no-applications {
+    text-align: center;
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+.btn-primary { 
+    background-color: #007bff; 
+    color: white; 
+    padding: 10px 20px; 
+    text-decoration: none; 
+    border-radius: 5px; 
+}
+.btn-primary:hover { 
+    background-color: #0056b3; 
+}
+</style>
+{% endblock %}
